@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace Home_Work_18.Model
 {
@@ -10,8 +11,17 @@ namespace Home_Work_18.Model
     /// </summary>
     public class ProductContext : DbContext
     {
-        public ProductContext() : base ("connectionToProduct") { }
-
         public DbSet<Product> Products { get; set; }
+
+        public ProductContext()
+        {
+            Database.EnsureCreated();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(ConfigurationManager.
+                            ConnectionStrings["connectionToProduct"].ToString());
+        }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace Home_Work_18.Model
 {
@@ -10,7 +11,17 @@ namespace Home_Work_18.Model
     /// </summary>
     public class ClientContext : DbContext
     {
-        public ClientContext() : base("connectionToSql") { }
         public DbSet<Client> Clients { get; set; }
+
+        public ClientContext()
+        {
+            Database.EnsureCreated();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(ConfigurationManager.
+                ConnectionStrings["connectionToClient"].ToString());
+        }
     }
 }

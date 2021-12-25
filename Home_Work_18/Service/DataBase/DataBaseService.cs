@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Data.Entity;
 using Home_Work_18.Model;
 using System.Windows;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Home_Work_18.Service.DataBase
 {
@@ -61,10 +61,10 @@ namespace Home_Work_18.Service.DataBase
                 pc = new ProductContext();
 
                 cc.Clients.Load();
-                ClientsList = cc.Clients.Local.ToBindingList<Client>();
+                ClientsList = cc.Clients.Local.ToBindingList();
 
                 pc.Products.Load();
-                ProductList = pc.Products.Local.ToBindingList<Product>();
+                ProductList = pc.Products.Local.ToBindingList();
 
                 connectionFlag = true;
 
